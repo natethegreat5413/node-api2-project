@@ -39,7 +39,7 @@ router.get('/:id/comments', (req, res) => {
     Posts.findPostComments(req.params.id)
         .then(comments => {
             if (comments) {
-                res.status(200).json(comments)
+                res.status(200).json({comments})
             }else{
                 res.status(404).json({ message: "The post with the specified ID does not exist." })
             }
@@ -67,7 +67,8 @@ router.post("/", (req, res) => {
 
 router.post("/:id/comments", (req, res) => {
     const id = req.params.id
-    const comment = req.body
+    console.log(req.params)
+    const comment = { "text": req.body.text, "post_id": id}
     comment.post_id = Number(id)
 
     if (!comment.text) {
@@ -94,7 +95,7 @@ router.delete("/:id", (req, res) => {
     .then(post => {
         Posts.remove(req.params.id)
         .then(() => {
-            res.status(200).json(post)
+            res.send(204)
         })
         .catch(error => {
             res.status(500).json({ error: "The post could not be removed" })
