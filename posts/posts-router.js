@@ -1,3 +1,5 @@
+// FINISHED!!
+
 const router = require('express').Router()
 
 const db = require('../data/db')
@@ -80,6 +82,7 @@ router.post('/:id/comments', (req, res) => {
     })
 })
 
+// delete a post
 router.delete('/:id', (req, res) => {
     db.remove(req.params.id)
     
@@ -95,6 +98,7 @@ router.delete('/:id', (req, res) => {
     })
 })
 
+// edit a post
 router.put('/:id', (req, res) => {
     const changes = req.body
     db.update(req.params.id, changes)
